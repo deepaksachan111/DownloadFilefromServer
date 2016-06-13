@@ -1,6 +1,10 @@
 package com.deepak.qserver.downloadfilefromserver;
 
 import android.app.Dialog;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.BlurMaskFilter;
+import android.graphics.drawable.Drawable;
 import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -9,6 +13,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -23,7 +28,7 @@ import java.net.URL;
 
 public class DownloadFileOtherWay extends AppCompatActivity {
 
-
+     ImageView imageView;
     ProgressBar pb;
     Dialog dialog;
     int downloadedSize = 0;
@@ -36,6 +41,8 @@ public class DownloadFileOtherWay extends AppCompatActivity {
         setContentView(R.layout.activity_download_file_other_way);
 
         Button b = (Button) findViewById(R.id.b1);
+        imageView = (ImageView)findViewById(R.id.set_img);
+
         b.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -51,7 +58,7 @@ public class DownloadFileOtherWay extends AppCompatActivity {
     }
 
     void downloadFile(){
-
+        final Bitmap bitmap;
         try {
             URL url = new URL(dwnload_file_path);
             HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
@@ -70,7 +77,10 @@ public class DownloadFileOtherWay extends AppCompatActivity {
             FileOutputStream fileOutput = new FileOutputStream(file);
 
             //Stream used for reading the data from the internet
-            InputStream inputStream = urlConnection.getInputStream();
+            final InputStream inputStream = urlConnection.getInputStream();
+
+          //  InputStream inputStream1 = new java.net.URL(dwnload_file_path).openStream();
+            bitmap = BitmapFactory.decodeStream(inputStream);
 
             //this is the total size of the file which we are downloading
             totalSize = urlConnection.getContentLength();
@@ -102,6 +112,14 @@ public class DownloadFileOtherWay extends AppCompatActivity {
             runOnUiThread(new Runnable() {
                 public void run() {
                   //  dialog.dismiss(); // if you want close it..
+
+                   // String imagePath = Environment.getExternalStorageDirectory().toString() + "/myfile.png";
+
+          // imageView.setImageDrawable(Drawable.createFromPath(imagePath));
+
+                    imageView.setImageBitmap(bitmap);
+
+
                 }
             });
 

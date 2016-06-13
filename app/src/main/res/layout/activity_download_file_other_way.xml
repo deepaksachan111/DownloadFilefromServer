@@ -9,11 +9,23 @@
         android:layout_height="wrap_content"
         android:text="Downloading File with ProgressBar Demo From Coderzheaven"
         />
+
+    <ImageView
+       android:id="@+id/set_img"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content" />
+
+    <RelativeLayout
+
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content">
     <Button
+        android:layout_alignParentBottom="true"
         android:id="@+id/b1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Download File"
-        android:onClick="downloadFile"
+        android:onClick="downloadFile"/>
+    </RelativeLayout>
         />
 </LinearLayout>
